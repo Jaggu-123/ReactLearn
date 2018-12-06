@@ -24,15 +24,23 @@ passport.use(
             proxy: true
         },
         async (accessToken, refreshToken, profile, done) => {
-            const existingUser = await User.findOne({ googleId: profile.id });
+            try {
+                const existingUser = await User.findOne({
+                    googleId: profile.id
+                });
 
-            if (existingUser) {
-                // we already have a record in the database
-                done(null, existingUser);
-            } else {
-                // we don't have the record in the database
-                const user = await new User({ googleId: profile.id }).save();
-                done(null, user);
+                if (existingUser) {
+                    // we already have a record in the database
+                    done(null, existingUser);
+                } else {
+                    // we don't have the record in the database
+                    const user = await new User({
+                        googleId: profile.id
+                    }).save();
+                    done(null, user);
+                }
+            } catch (err) {
+                console.log("err2");
             }
         }
     )
