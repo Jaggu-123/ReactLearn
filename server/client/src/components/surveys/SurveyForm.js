@@ -2,6 +2,7 @@
 
 import _ from "lodash";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 
@@ -36,13 +37,35 @@ class SurveyForm extends Component {
                     )}
                 >
                     {this.renderFields()}
-                    <button type="submit">Submit</button>
+                    <Link to="/surveys" className="red white-text btn-flat">
+                        Cancel
+                    </Link>
+                    <button
+                        type="submit"
+                        className="teal btn-flat right white-text"
+                    >
+                        <b>Submit</b>
+                        <i className="material-icons right">arrow_forward</i>
+                    </button>
                 </form>
             </div>
         );
     }
 }
 
+function validate(values) {
+    const errors = {}; // if errors is empty, then it is considered that there is no validation error
+
+    _.each(FIELDS, ({ name }) => {
+        if (!values[name]) {
+            errors[name] = "You must provide this field";
+        }
+    });
+
+    return errors;
+}
+
 export default reduxForm({
+    validate,
     form: "surveyForm"
 })(SurveyForm);
