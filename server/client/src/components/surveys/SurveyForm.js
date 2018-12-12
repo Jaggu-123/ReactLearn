@@ -51,7 +51,7 @@ class SurveyForm extends Component {
 function validate(values) {
     const errors = {}; // if errors is empty, then it is considered that there is no validation error
 
-    errors.emails = validateEmails(values.emails || "");
+    errors.recipients = validateEmails(values.recipients || "");
 
     _.each(FIELDS, ({ name }) => {
         if (!values[name]) {
