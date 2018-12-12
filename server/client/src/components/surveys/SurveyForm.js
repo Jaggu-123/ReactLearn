@@ -6,13 +6,7 @@ import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 import validateEmails from "../../utils/validateEmails";
-
-const FIELDS = [
-    { label: "SurveyTitle", name: "title" },
-    { label: "Subject", name: "subject" },
-    { label: "Email Body", name: "body" },
-    { label: "Recipient List", name: "emails" }
-];
+import FIELDS from "./formFields";
 
 class SurveyForm extends Component {
     renderFields() {
